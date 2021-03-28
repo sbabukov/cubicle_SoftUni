@@ -7,9 +7,14 @@ const routes = require('./routes')
 
 const app = express();
 
-// викане на настройката на експрес за работа с хендълбарс
-const expressConfig = require('./config/express');
-expressConfig(app);
+// викане на настройката на експрес за работа с хендълбарс (може да пише и така)
+// const expressConfig = require('./config/express');
+// expressConfig(app);
+
+
+// подаване app на express и mongoose
+require('./config/express')(app)
+require('./config/mongoose')(app)
 
 //  добавяне на мидълуер за раутването, middleware using routes - делегира раутването на аппа
 app.use(routes);

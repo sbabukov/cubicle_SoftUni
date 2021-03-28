@@ -1,15 +1,14 @@
 const Cube = require('../models/Cube');
-const uniqid = require('uniqid');
 const productData = require('../data/productData')
 
 // правим филтрация по куери стринга
 function getAll(query) {
 
     // productsData.getAll()  взима продуктите от базата
-    // let products = productData.getAll();
+    let products = productData.getAll();
 
     // понеже е статичен метода getAll, се извиква директно върху класа Cube, получават всичките продукти от productsDb
-    let products = Cube.getAll();
+    // let products = Cube.getAll();
 
     if (query.search) {
         products = products.filter(x => x.name.toLowerCase().includes(query.search));
@@ -27,23 +26,16 @@ function getAll(query) {
 
 // функцията намира куб според неговото id , и връща куба
 function getOne(id) {
-    // return productData.getOne(id);
+    return productData.getOne(id);
 
-    return Cube.getOne(id);
+    // return Cube.getOne(id);
 }
 
 // създаване на куб (продукта)
 // създаване на нов КУБ от постзаявката CREATE
 
-// сега инсталираме блиотека uniqid за уникални id-та
 function create(data) {
-    let cube = new Cube(
-        uniqid(),
-        data.name,
-        data.description,
-        data.imageUrl,
-        data.difficultyLevel
-    );
+    let cube = new Cube(data);
 
 
     // path библиотеката джойнва двата пътя - първия от абсолютният път до директорията в която се намираме и вторият: релативно да се върнем назад към пътеката на json файла
