@@ -1,22 +1,18 @@
 const { Router } = require('express');
-const router = Router();
 const productService = require('../services/productService')
+const router = Router();
 
 // импортване на валидиращата функция (name export/import)
 const { validateProduct } = require('./helpers/productHelpers')
 
 
 router.get('/', (req, res) => {
-console.log(req.query);
-
-    // на home контролера трябва да му подадем продуктите от productService
-    //getAll(req.query) връща каквото има в куери стринга, ако няма нищо ще върне всички продукти
-    let products = productService.getAll(req.query);
-
-    res.render('home', { title: 'Browse', products })
-
-    // втори вариант
-    // res.render('home', {title: 'home'})
+    productService.getAll(req.query)
+    .then(products => {
+        console.log(products);
+        res.render('home', { title: 'Browse', products });
+    })
+    .catch(() => res.status(500).end())
 
 });
 
@@ -46,12 +42,12 @@ router.post('/create', validateProduct, (req, res) => {
     .catch(() => res.status(500).end())
 });
 
-router.get('/details/:productId', (req, res) => {
-
-    // console.log(req.params.productId);
+router.get('/details/:productId', async (req, res) => {
 
     // дефиниране на продуктът - кубче според id-то
-    let product = productService.getOne(req.params.productId)
+    // трябва да го ауейтнем
+    let product = await productService.getOne(req.params.productId)
+    
 
     // тук се подава product (името product се използва в дитейлс темплейта, и там трябва да product.нещо си) за да може да се рендерира като детайлс и темплейтът дитейлс да го разбере
     res.render('details', { title: 'Product Details', product })
