@@ -1,3 +1,4 @@
+const Accessory = require('../models/Accessory');
 const Cube = require('../models/Cube');
 
 async function getAll(query) {
@@ -41,9 +42,26 @@ function create(data) {
 
 };
 
+async function attachAccessory(productId, accessoryId) {
+    // от базата данни взимаме съществуващия куб, пращаме id и базата по него ни връща обекта
+    let product = await Cube.findById(productId);
+    // вземаме и аксесоара от базата
+    let accessory = await Accessory.findById(accessoryId);
+
+    // console.log(product); 
+    // console.log(accessory); 
+
+    // трябва да асоциираме куба и аксесоара - accessories идва от модела Cube.js
+    product.accessories.push(accessory);
+    // и после се сейва
+    // ретърнва се за да се резолвне промиса
+    return product.save();
+};
+
 module.exports = {
     getAll,
     getOne,
     create,
+    attachAccessory,
 }
 
