@@ -14,4 +14,4 @@ const accessoryScheme = new mongoose.Schema({
     description: String,
 })
 
-module.export = mongoose.model('Accessory', accessoryScheme);
+module.exports = mongoose.model('Accessory', accessoryScheme);

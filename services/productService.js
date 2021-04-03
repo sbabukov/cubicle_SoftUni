@@ -2,7 +2,8 @@ const Cube = require('../models/Cube');
 
 async function getAll(query) {
     // взима всичките кубове които са вътре
-    // lean() e от монгуса, не връща целия Монго документ клас, обръща го в стандартен JS document
+    // lean() e от монгуса, не връща целия Монго документ клас, обръща го в лийн масив със стандартни JS обекти
+    // дай ми всички кубове и ми ги върни в лийн вариант (чисти JS objects)
     let products = await Cube.find({}).lean();
 
     // console.log(products);
@@ -24,7 +25,7 @@ async function getAll(query) {
 // функцията намира куб според неговото id , и връща куба
 // вече трябва да я направим асинхронна
  function getOne(id) {
-    // намиря куб по id 
+    // намиря куб по id, и ми го върни в лийн вариант 
     return Cube.findById(id).lean();
     
 }

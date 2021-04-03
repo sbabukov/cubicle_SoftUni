@@ -7,9 +7,10 @@ const { validateProduct } = require('./helpers/productHelpers')
 
 
 router.get('/', (req, res) => {
+    // тук извикваме сървиз, който да направи заявката
     productService.getAll(req.query)
     .then(products => {
-        console.log(products);
+        // console.log(products);
         res.render('home', { title: 'Browse', products });
     })
     .catch(() => res.status(500).end())
