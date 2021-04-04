@@ -20,6 +20,7 @@ async function getAll(query) {
     if (query.to) {
         products = products.filter(x => Number(x.level) <= query.to)
     }
+
     return products;
 }
 
@@ -29,7 +30,13 @@ async function getAll(query) {
     // намиря куб по id, и ми го върни в лийн вариант 
     return Cube.findById(id).lean();
     
-}
+};
+
+function getOneWithAccessories(id) {
+    //  да вземе куба със съответните му аксесоари (сигурно за това е populate('accessories')) 
+    // populate('accessories') става в монгууз, метод на монгууз е, дай ми този куб и му популирай - запълни му аксесоарите, демек ще върне аксесоарите ('accessories') като масив от обекти - всичко - цялата информация от обекта,  картинки, име и т.н. Всичко това е вързано в модела Cube.js 
+    return Cube.findById(id).populate('accessories').lean();
+};
 
 // създаване на куб (продукта)
 // създаване на нов КУБ от постзаявката CREATE
@@ -61,7 +68,8 @@ async function attachAccessory(productId, accessoryId) {
 module.exports = {
     getAll,
     getOne,
+    getOneWithAccessories,
     create,
     attachAccessory,
-}
+};
 

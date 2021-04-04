@@ -48,7 +48,7 @@ router.get('/details/:productId', async (req, res) => {
 
     // дефиниране на продуктът - кубче според id-то
     // трябва да го ауейтнем
-    let product = await productService.getOne(req.params.productId)
+    let product = await productService.getOneWithAccessories(req.params.productId);
 
 
     // тук се подава product (името product се използва в дитейлс темплейта, и там трябва да product.нещо си) за да може да се рендерира като детайлс и темплейтът дитейлс да го разбере
@@ -58,11 +58,17 @@ router.get('/details/:productId', async (req, res) => {
 
 router.get('/:productId/attach', async (req, res) => {
     // console.log('Hello');
-    // от продуктсървиса чрез гетуон и продукт айдито,  взимам продукта
-    let product = await productService.getOne(req.params.productId)
+    // от продуктсървиса чрез функцията getOne и productId,  взимам продукта
+    let product = await productService.getOne(req.params.productId);
+
+    // console.log(product.accessories);
 
     // взимаме всички аксесоари
-    let accessories = await accessoryService.getAll();
+    let accessories = await accessoryService.getAllUnattached(product.accessories);
+    // console.log(accessories);
+
+
+
 
     // console.log(accessories);
 

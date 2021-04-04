@@ -1,8 +1,9 @@
 const mongoose = require('mongoose');
+const config = require('./config');
 
 module.exports = (app) => {
     // кънектване на монгуса, идва от документацията
-    mongoose.connect('mongodb://localhost/cubicle', { useNewUrlParser: true, useUnifiedTopology: true });
+    mongoose.connect(config.DB_CONNECTION, { useNewUrlParser: true, useUnifiedTopology: true });
     const db = mongoose.connection;
     
     //  db.on означа, че при грешка се байндва грешката и се изписва
