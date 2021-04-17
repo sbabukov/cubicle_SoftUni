@@ -152,6 +152,7 @@ router.get('/:productId/delete', isAuthenticated, (req, res) => {
 router.post('/:productId/delete', isAuthenticated, (req, res) => {
     // подаваме на deleteOne какво да се изтрие
 
+    // req.params.productId това идва от раута
     productService.deleteOne(req.params.productId)
         // тук проверяваме дали нашия юзер е криейтъра
         .then(product => {
