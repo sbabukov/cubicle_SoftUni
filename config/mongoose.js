@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-const config = require('./config');
+const config = require('./index');
 
 module.exports = (app) => {
     // кънектване на монгуса, идва от документацията

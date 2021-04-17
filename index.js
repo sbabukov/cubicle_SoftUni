@@ -1,6 +1,6 @@
 const express = require('express');
 // console.log(process.env.NODE_ENV);
-const config = require('./config/config')
+const config = require('./config')
 
 // import routers
 const routes = require('./routes')
@@ -18,9 +18,6 @@ require('./config/mongoose')(app)
 
 //  добавяне на мидълуер за раутването, middleware using routes - делегира раутването на аппа
 app.use(routes);
-
-
-
 
 
 

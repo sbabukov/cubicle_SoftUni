@@ -28,7 +28,12 @@ const cubeSchema = new mongoose.Schema ({
             type: mongoose.Types.ObjectId,
             ref: 'Accessory',
         }
-    ]
+    ],
+    // по този начин всеки куб си има собствен криейтър
+    creator: {
+        type: mongoose.Types.ObjectId,
+            ref: 'User',
+    },
 })
 
 // експортва се Cube като се подава и неговата схема

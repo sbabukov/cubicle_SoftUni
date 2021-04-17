@@ -26,10 +26,10 @@ async function getAll(query) {
 
 // функцията намира куб според неговото id , и връща куба
 // вече трябва да я направим асинхронна
- function getOne(id) {
+function getOne(id) {
     // намиря куб по id, и ми го върни в лийн вариант 
     return Cube.findById(id).lean();
-    
+
 };
 
 function getOneWithAccessories(id) {
@@ -40,9 +40,10 @@ function getOneWithAccessories(id) {
 
 // създаване на куб (продукта)
 // създаване на нов КУБ от постзаявката CREATE
-
-function create(data) {
-    let cube = new Cube(data);
+// подаваме и userId
+function create(data, userId) {
+    // деструктурираме датата и подаваме също и айдито като userId. Това creator: userId добавя айдито на създателя към базата, идва от модела в Cube.js
+    let cube = new Cube({...data, creator: userId});
 
     // ретърнва промис
     return cube.save();
@@ -65,11 +66,26 @@ async function attachAccessory(productId, accessoryId) {
     return product.save();
 };
 
+function updateOne(productId, productData) {
+    // от https://mongoosejs.com/docs/api/document.html да видим какви ъпдейт заявки има. Document.prototype.updateOne() от документацията
+    // трябва да подадем филтрираща логика и какво искаме да ъпдейтваме
+    // намери ми куба по id и подай данните които да се променят - productData
+    return Cube.updateOne({_id: productId}, productData);
+};
+
+function deleteOne(productId) {
+    // return-ваме за да си хване промиса
+    // от монгуз докумментацията намираме как да изтрием  в Query deleteOne - Query.prototype.deleteOne()
+    return Cube.deleteOne({_id: productId})
+}
+
 module.exports = {
     getAll,
     getOne,
     getOneWithAccessories,
     create,
     attachAccessory,
+    updateOne,
+    deleteOne,
 };
 

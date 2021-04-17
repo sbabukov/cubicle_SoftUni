@@ -1,0 +1,21 @@
+<main>
+  <h1>Register Form</h1>
+  <div class="form">
+    <form action="/auth/register" method="POST">
+      <label for="username">Username</label>
+      <input type="text" id="username" name="username">
+
+      <label for="password">Password</label>
+      <input type="password" id="password" name="password">
+      {{!-- за да не стои в html-a когато още не сме писали --}}
+      {{#if error}}
+      {{!--този error.message идва от аутСервис --}}
+      <span class="error">{{error.message}}</span>
+      {{/if }}
+
+      <label for="repeatPassword">Re-Password</label>
+      <input type="password" id="repeatPassword" name="repeatPassword">
+      <input type="submit" value="Register">
+    </form>
+  </div>
+</main>
